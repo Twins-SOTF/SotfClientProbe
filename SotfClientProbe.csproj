@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>SotfClientProbe</AssemblyName>
+    <RootNamespace>SotfClientProbe</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>bin\</OutputPath>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="src\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="assets\logo.png" LogicalName="SotfClientProbe.logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="$(SotfDir)\BepInEx\core\*.dll" Exclude="$(SotfDir)\BepInEx\core\dobby.dll">
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="Exists('$(SotfDir)\BepInEx\interop')">
+    <Reference Include="$(SotfDir)\BepInEx\interop\*.dll">
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <PropertyGroup Condition="Exists('$(SotfDir)\BepInEx\interop')">
+    <DefineConstants>$(DefineConstants);HAS_INTEROP</DefineConstants>
+  </PropertyGroup>
+
+</Project>
